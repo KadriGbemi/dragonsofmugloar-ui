@@ -13,6 +13,15 @@
       {{ error.message || 'Failed to load advertisements.' }}
     </div>
 
+
+    <div v-else-if="solveError"
+      class="mb-4 rounded-md border border-red-200 bg-red-50 text-red-700 text-sm px-4 py-3 flex items-center justify-between gap-3">
+      <span>{{ solveError.message || 'Failed to solve mission.' }}</span>
+      <button type="button" class="underline font-medium hover:text-red-900 shrink-0" @click="retry">
+        Try again
+      </button>
+    </div>
+
     <!-- Empty State -->
     <div v-else-if="ads.length === 0"
       class="rounded-md border border-blue-200 bg-blue-50 text-blue-700 text-sm px-4 py-3">
@@ -66,7 +75,7 @@
           <button type="button" @click="solveGame(ad.adId)"
             class="whitespace-nowrap inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-3 py-1.5 shadow-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             <i class="pi pi-play text-xs"></i>
-            Play Mission
+            Solve Mission
           </button>
         </div>
       </li>
@@ -84,18 +93,24 @@ const {
   ads,
   loading,
   error,
-  fetchAds,
+  fetchAds
 } = useAds()
 
 const {
   solveAd,
   loading: solveLoading,
   error: solveError,
+   clearError
 } = useSolveAd()
 
 onMounted(() => {
   fetchAds()
 })
+
+const retry = (): void => {
+  clearError()
+  fetchAds()
+}
 
 const solveGame = async (adId: string) => {
   const result = await solveAd(gameStore.gameId, adId)

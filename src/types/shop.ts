@@ -5,3 +5,11 @@ export type ShopItem = {
 };
 
 export type ShopListResponse = ShopItem[];
+
+export type PurchaseShopItemResponse = {
+  shoppingSuccess: string;
+  gold: number;
+  lives: number;
+  level: number;
+  turn: number;
+};

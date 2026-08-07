@@ -4,7 +4,7 @@ import type { Ad, SolveAdResponse } from '@/types/ads'
 import { useGameStore } from '@/stores/game'
 import type { APIError } from '@/types/game'
 
-export function useAds() {
+export const useAds = () => {
   const ads = ref<Ad[]>([])
   const loading = ref(false)
   const error = ref<APIError | null>(null)
@@ -25,12 +25,11 @@ export function useAds() {
     }
   }
 
-
   return {
     ads,
     loading,
     error,
-    fetchAds,
+    fetchAds
   }
 }
 
@@ -39,6 +38,7 @@ interface UseSolveAdReturn {
   loading: Ref<boolean>
   error: Ref<APIError | null>
   result: Ref<SolveAdResponse | null>
+  clearError: Function
 }
 
 export const useSolveAd = (): UseSolveAdReturn => {
@@ -62,5 +62,9 @@ export const useSolveAd = (): UseSolveAdReturn => {
     }
   }
 
-  return { solveAd, loading, error, result }
+  const clearError = (): void => {
+    error.value = null
+  }
+
+  return { solveAd, loading, error, result, clearError }
 }
