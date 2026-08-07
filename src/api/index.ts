@@ -1,8 +1,6 @@
 import axios, { type AxiosInstance, type AxiosError } from 'axios'
-import type { APIError, APIResponse } from '../types/game'
+import type { APIResponse } from '../types/game'
 import { useGameErrorStore } from '@/stores/game.error'
-
-console.log("API Base URL:", import.meta.env.VITE_API_BASE_URL)
 
 export const http: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -13,8 +11,6 @@ export const http: AxiosInstance = axios.create({
 http.interceptors.response.use(
   (response) => {
     const body = response.data
-
-    console.log("HTTP Success Response:", body)
 
     if (
       body?.success === false &&
@@ -30,8 +26,6 @@ http.interceptors.response.use(
 
   (error: AxiosError<APIResponse<never>>) => {
     const body = error.response?.data
-
-    console.log("HTTP Error Response:", body)
 
     if (
       body?.success === false &&

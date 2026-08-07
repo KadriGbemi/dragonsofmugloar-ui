@@ -10,12 +10,9 @@ export const startGameApi = async (playerName: string): Promise<Game> => {
   return body.data
 }
 
-export const solveAdApi = async (
-  gameId: string,
-  adId: string
-): Promise<AdSolveResult> => {
-  const res = await http.post<APIResponse<AdSolveResult>>(
-    `/ads/${encodeURIComponent(gameId)}/solve/${encodeURIComponent(adId)}`
+export const getGameApi = async (gameId: string): Promise<Game> => {
+  const res = await http.get<APIResponse<Game>>(
+    `/game/${encodeURIComponent(gameId)}`
   )
   const body = res.data
   if (!body.success) throw body.error

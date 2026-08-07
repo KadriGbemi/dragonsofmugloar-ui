@@ -1,7 +1,7 @@
-import { ref } from 'vue'
-import { getAdsApi } from '../api/ads'
-import type { Ad } from '../types/ads'
-import { useGameStore } from '../stores/game'
+import { ref, type Ref } from 'vue'
+import { getAdsApi, solveAdApi } from '@/api/ads'
+import type { Ad, SolveAdResponse } from '@/types/ads'
+import { useGameStore } from '@/stores/game'
 import type { APIError } from '@/types/game'
 
 export function useAds() {
@@ -32,4 +32,35 @@ export function useAds() {
     error,
     fetchAds,
   }
+}
+
+interface UseSolveAdReturn {
+  solveAd: (gameId: string, adId: string) => Promise<SolveAdResponse>
+  loading: Ref<boolean>
+  error: Ref<APIError | null>
+  result: Ref<SolveAdResponse | null>
+}
+
+export const useSolveAd = (): UseSolveAdReturn => {
+  const loading = ref(false)
+  const error = ref<APIError | null>(null)
+  const result = ref<SolveAdResponse | null>(null)
+
+  const solveAd = async (gameId: string, adId: string): Promise<SolveAdResponse> => {
+    error.value = null
+    loading.value = true
+
+    try {
+      const data = await solveAdApi(gameId, adId)
+      result.value = data
+      return data
+    } catch (err) {
+      error.value = err as APIError
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { solveAd, loading, error, result }
 }
