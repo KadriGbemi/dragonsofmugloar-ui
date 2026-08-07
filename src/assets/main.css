@@ -1,10 +1,28 @@
-@import './base.css';
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-light: #60a5fa;
+  --color-primary-dark: #1d4ed8;
+
+  --color-secondary: #9333ea;
+  --color-secondary-light: #c084fc;
+  --color-secondary-dark: #7e22ce;
+
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-warning: #f59e0b;
+
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+}
 
  #app {
   width: 80%;
   max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
-  padding: 2rem 0; 
+  padding: 2rem 0;
   box-sizing: border-box;
 }
