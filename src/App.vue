@@ -3,7 +3,7 @@
   <GameStatusError v-if="gameErrorStore.error" />
 
   <div v-else>
-    <nav v-if="route.meta.showBreadcrumb" class="border-b border-gray-200">
+    <nav v-if="route.meta.showBreadcrumb" class="border-b border-gray-200 py-3 md:py-0">
       <div class="flex flex-wrap items-center justify-between gap-4">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
           <li class="me-2">
@@ -55,6 +55,16 @@
             <i class="pi pi-heart-fill text-red-500 text-xs"></i>
             Lives: {{ gameStore.game.lives }}
           </span>
+
+           <button type="button" @click="open = true"
+          class="inline-flex items-center cursor-pointer gap-1.5 rounded-md border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 px-2.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+          <i class="pi pi-sign-out text-xs"></i>
+          Exit Game
+        </button>
+
+         <ConfirmDialog :open="open" title="Exit game?"
+      message="Your current progress will be lost. Are you sure you want to exit?" confirm-label="Exit"
+      @confirm="exitGame" @cancel="open = false" />
         </div>
       </div>
     </nav>
@@ -64,12 +74,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-import GameStatusError from './components/GameStatusError.vue'
-import { useGameErrorStore } from './stores/game.error'
-import { useGameStore } from './stores/game'
+import ConfirmDialog from '@/components/ConfirmDialog.vue'
+import GameStatusError from '@/components/GameStatusError.vue'
+import { useGameErrorStore } from '@/stores/game.error'
+import { useGameStore } from '@/stores/game'
 
 const gameErrorStore = useGameErrorStore()
 const gameStore = useGameStore()
@@ -94,10 +105,13 @@ const items = computed(() => [
     routeName: 'history',
     command: () => router.push({ name: 'history' })
   },
-  {
-    label: 'Reputation',
-    routeName: 'reputation',
-    command: () => router.push({ name: 'reputation' })
-  }
 ])
+
+const open = ref(false)
+
+const exitGame = (): void => {
+  open.value = false
+  gameStore.clearGame()
+  router.push({ name: 'start' })
+}
 </script>

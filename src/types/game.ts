@@ -1,4 +1,5 @@
 export interface Game {
+  _id: string;
   gameId: string;
   lives: number;
   gold: number;
@@ -9,6 +10,7 @@ export interface Game {
   playerName: string;
   playerId: string;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface StartGameRequest {

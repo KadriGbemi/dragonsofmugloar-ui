@@ -54,11 +54,6 @@
                 <i class="pi pi-clock text-[10px]"></i>
                 {{ ad.expiresIn }} days left
               </span>
-              <span
-                class="inline-flex items-center gap-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-1">
-                <i class="pi pi-star text-[10px]"></i>
-                {{ ad.reward }}
-              </span>
             </div>
           </div>
         </div>

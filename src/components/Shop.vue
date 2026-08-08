@@ -51,7 +51,7 @@
           </div>
 
           <button type="button" @click="purchaseItem(item.id)"
-            class="whitespace-nowrap inline-flex items-center justify-center gap-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-3 py-1.5 shadow-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            class="whitespace-nowrap inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-3 py-1.5 shadow-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             <i class="pi pi-shopping-cart text-xs"></i>
             Purchase Item
           </button>
@@ -97,11 +97,10 @@ const retry = (): void => {
 const purchaseItem = async (itemId: string) => {
   const result = await purchaseShopItem(gameStore.gameId, itemId)
 
- if (!result?.shoppingSuccess) {
+  if (!result?.shoppingSuccess) {
     purchaseFailureMessage.value =
       'Check that you have enough gold and meet the requirements to purchase this item.'
   }
-
 
   if (result && gameStore.game) {
     gameStore.setGame({
