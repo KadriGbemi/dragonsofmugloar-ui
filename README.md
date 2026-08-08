@@ -52,3 +52,13 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+## Environment Variables
+
+[#environment-variables](#environment-variables)
+
+Create a `.env` file in the project root (see `.env.example` if provided) with the following variable:
+
+- `VITE_API_BASE_URL` — the base URL of the mugloar-service backend API that this frontend talks to (e.g. `http://localhost:3000` for local development, or your deployed backend URL in production).
+
+> Vite only exposes env variables prefixed with `VITE_` to client-side code. After changing `.env`, restart the dev server for the change to take effect.
