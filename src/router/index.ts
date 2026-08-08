@@ -30,12 +30,6 @@ const router = createRouter({
       component: () => import('../views/HistoryView.vue'),
       meta: { showBreadcrumb: true }
     },
-    {
-      path: '/details',
-      name: 'details',
-      component: () => import('../views/DetailsView.vue'),
-      meta: { showBreadcrumb: true }
-    }
   ],
 })
 
