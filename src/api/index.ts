@@ -1,5 +1,4 @@
-import axios, { type AxiosInstance, type AxiosError } from 'axios'
-import type { APIResponse } from '../types/game'
+import axios, { type AxiosInstance} from 'axios'
 import { useGameErrorStore } from '@/stores/game.error'
 
 export const http: AxiosInstance = axios.create({
@@ -24,7 +23,7 @@ http.interceptors.response.use(
     return response
   },
 
-  (error: AxiosError<APIResponse<never>>) => {
+  (error) => {
     const body = error.response?.data
 
     if (
